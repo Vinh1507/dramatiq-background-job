@@ -20,11 +20,6 @@
     state: directory
     mode: '0755'
 
-- name: Copy django-nginx directory
-  copy:
-    src: django-nginx
-    dest: /dramatiq-project  
-
 - name: Render Docker Compose template
   template:
     src: docker-compose.yml.j2
