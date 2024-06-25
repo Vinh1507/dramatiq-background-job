@@ -1,0 +1,41 @@
+- name: Check if docker-compose.yml exists
+  stat:
+    path: /dramatiq-project/docker-compose.yml
+  register: compose_file
+
+- name: Run Docker Compose Down
+  shell: sudo docker compose down
+  args:
+    chdir: /dramatiq-project
+  when: compose_file.stat.exists
+
+- name: Remove directory
+  file:
+    path: /dramatiq-project           
+    state: absent
+
+- name: Create directory dramatiq-project  
+  file:
+    path: /dramatiq-project       
+    state: directory
+    mode: '0755'
+
+- name: Copy django-nginx directory
+  copy:
+    src: django-nginx
+    dest: /dramatiq-project  
+
+- name: Render Docker Compose template
+  template:
+    src: docker-compose.yml.j2
+    dest: /dramatiq-project/docker-compose.yml
+
+- name: Run Docker Compose Build
+  shell: sudo docker compose build --no-cache
+  args:
+    chdir: /dramatiq-project
+
+- name: Run Docker Compose Up
+  shell: sudo docker compose up -d
+  args:
+    chdir: /dramatiq-project
