@@ -1,0 +1,352 @@
+Branch indexing
+13:45:23 Connecting to https://api.github.com using Vinh1507/****** (github-acc)
+Obtained Jenkinsfile from 020fd0233ddd245440e9d7c3b6910c0d635afa7a
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/dramatiq-student_main
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential e1915343-3fda-44a9-a636-a8a8406f7777
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/dramatiq-student_main/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Vinh1507/dramatiq-background-job.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/Vinh1507/dramatiq-background-job.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+using GIT_ASKPASS to set credentials github-acc
+ > git fetch --no-tags --force --progress -- https://github.com/Vinh1507/dramatiq-background-job.git +refs/heads/main:refs/remotes/origin/main # timeout=10
+Checking out Revision 020fd0233ddd245440e9d7c3b6910c0d635afa7a (main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 020fd0233ddd245440e9d7c3b6910c0d635afa7a # timeout=10
+Commit message: "Update docker compose template"
+ > git rev-list --no-walk ff68bbf3f3097012267f0069523834270cf482e8 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Clone)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Clone code from branch main
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/dramatiq-student_main/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Vinh1507/dramatiq-background-job # timeout=10
+Fetching upstream changes from https://github.com/Vinh1507/dramatiq-background-job
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+ > git fetch --tags --force --progress -- https://github.com/Vinh1507/dramatiq-background-job +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 020fd0233ddd245440e9d7c3b6910c0d635afa7a (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 020fd0233ddd245440e9d7c3b6910c0d635afa7a # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D main # timeout=10
+ > git checkout -b main 020fd0233ddd245440e9d7c3b6910c0d635afa7a # timeout=10
+Commit message: "Update docker compose template"
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ git describe --tags --abbrev=0
+[Pipeline] echo
+Tag version: v1.2
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Image version: vinhbh/dramatiq_student:v1.2
+[Pipeline] sh
++ docker build --no-cache -t vinhbh/dramatiq_student:v1.2 .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 257B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.9-slim
+#2 ...
+
+#3 [auth] library/python:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.9-slim
+#2 DONE 4.7s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [1/5] FROM docker.io/library/python:3.9-slim@sha256:e9074b2ea84e00d4a73a7d0c01c52820e7b68d8901c5fa282be4f1b289d5b553
+#5 DONE 0.0s
+
+#6 [2/5] WORKDIR /app
+#6 CACHED
+
+#7 [internal] load build context
+#7 transferring context: 15.59kB done
+#7 DONE 0.0s
+
+#8 [3/5] COPY requirements.txt requirements.txt
+#8 DONE 0.0s
+
+#9 [4/5] RUN apt-get update && apt-get install -y netcat-openbsd && pip install --no-cache-dir -r requirements.txt
+#9 0.924 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#9 0.999 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#9 1.033 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+#9 1.080 Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8786 kB]
+#9 2.376 Get:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [13.8 kB]
+#9 2.395 Get:6 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [160 kB]
+#9 3.413 Fetched 9214 kB in 3s (2964 kB/s)
+#9 3.413 Reading package lists...
+#9 4.074 Reading package lists...
+#9 4.743 Building dependency tree...
+#9 4.904 Reading state information...
+#9 5.068 The following additional packages will be installed:
+#9 5.069   libbsd0
+#9 5.111 The following NEW packages will be installed:
+#9 5.112   libbsd0 netcat-openbsd
+#9 5.188 0 upgraded, 2 newly installed, 0 to remove and 0 not upgraded.
+#9 5.188 Need to get 159 kB of archives.
+#9 5.188 After this operation, 317 kB of additional disk space will be used.
+#9 5.188 Get:1 http://deb.debian.org/debian bookworm/main amd64 libbsd0 amd64 0.11.7-2 [117 kB]
+#9 5.261 Get:2 http://deb.debian.org/debian bookworm/main amd64 netcat-openbsd amd64 1.219-1 [41.5 kB]
+#9 5.400 debconf: delaying package configuration, since apt-utils is not installed
+#9 5.446 Fetched 159 kB in 0s (1076 kB/s)
+#9 5.497 Selecting previously unselected package libbsd0:amd64.
+#9 5.497 (Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 6697 files and directories currently installed.)
+#9 5.503 Preparing to unpack .../libbsd0_0.11.7-2_amd64.deb ...
+#9 5.525 Unpacking libbsd0:amd64 (0.11.7-2) ...
+#9 5.614 Selecting previously unselected package netcat-openbsd.
+#9 5.615 Preparing to unpack .../netcat-openbsd_1.219-1_amd64.deb ...
+#9 5.626 Unpacking netcat-openbsd (1.219-1) ...
+#9 5.709 Setting up libbsd0:amd64 (0.11.7-2) ...
+#9 5.742 Setting up netcat-openbsd (1.219-1) ...
+#9 5.772 update-alternatives: using /bin/nc.openbsd to provide /bin/nc (nc) in auto mode
+#9 5.772 update-alternatives: warning: skip creation of /usr/share/man/man1/nc.1.gz because associated file /usr/share/man/man1/nc_openbsd.1.gz (of link group nc) doesn't exist
+#9 5.772 update-alternatives: warning: skip creation of /usr/share/man/man1/netcat.1.gz because associated file /usr/share/man/man1/nc_openbsd.1.gz (of link group nc) doesn't exist
+#9 5.789 Processing triggers for libc-bin (2.36-9+deb12u7) ...
+#9 8.384 Collecting dramatiq
+#9 8.518   Downloading dramatiq-1.17.0-py3-none-any.whl (120 kB)
+#9 8.570      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 120.1/120.1 kB 2.3 MB/s eta 0:00:00
+#9 8.641 Collecting apscheduler
+#9 8.673   Downloading APScheduler-3.10.4-py3-none-any.whl (59 kB)
+#9 8.676      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.3/59.3 kB 93.0 MB/s eta 0:00:00
+#9 8.774 Collecting requests
+#9 8.801   Downloading requests-2.32.3-py3-none-any.whl (64 kB)
+#9 8.808      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.9/64.9 kB 14.9 MB/s eta 0:00:00
+#9 8.848 Collecting tabulate
+#9 8.880   Downloading tabulate-0.9.0-py3-none-any.whl (35 kB)
+#9 8.930 Collecting pika
+#9 8.960   Downloading pika-1.3.2-py3-none-any.whl (155 kB)
+#9 8.983      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 155.4/155.4 kB 7.3 MB/s eta 0:00:00
+#9 9.070 Collecting prometheus-client>=0.2
+#9 9.097   Downloading prometheus_client-0.20.0-py3-none-any.whl (54 kB)
+#9 9.103      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 54.5/54.5 kB 12.2 MB/s eta 0:00:00
+#9 9.174 Collecting six>=1.4.0
+#9 9.202   Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+#9 9.316 Collecting pytz
+#9 9.345   Downloading pytz-2024.1-py2.py3-none-any.whl (505 kB)
+#9 9.422      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 505.5/505.5 kB 6.7 MB/s eta 0:00:00
+#9 9.480 Collecting tzlocal!=3.*,>=2.0
+#9 9.515   Downloading tzlocal-5.2-py3-none-any.whl (17 kB)
+#9 9.565 Collecting idna<4,>=2.5
+#9 9.598   Downloading idna-3.7-py3-none-any.whl (66 kB)
+#9 9.605      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 66.8/66.8 kB 17.6 MB/s eta 0:00:00
+#9 9.665 Collecting certifi>=2017.4.17
+#9 9.694   Downloading certifi-2024.6.2-py3-none-any.whl (164 kB)
+#9 9.716      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 164.4/164.4 kB 9.1 MB/s eta 0:00:00
+#9 9.809 Collecting urllib3<3,>=1.21.1
+#9 9.838   Downloading urllib3-2.2.2-py3-none-any.whl (121 kB)
+#9 9.853      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.4/121.4 kB 24.9 MB/s eta 0:00:00
+#9 10.06 Collecting charset-normalizer<4,>=2
+#9 10.08   Downloading charset_normalizer-3.3.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (142 kB)
+#9 10.10      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 142.3/142.3 kB 8.8 MB/s eta 0:00:00
+#9 10.29 Installing collected packages: pytz, urllib3, tzlocal, tabulate, six, prometheus-client, pika, idna, charset-normalizer, certifi, requests, dramatiq, apscheduler
+#9 11.25 Successfully installed apscheduler-3.10.4 certifi-2024.6.2 charset-normalizer-3.3.2 dramatiq-1.17.0 idna-3.7 pika-1.3.2 prometheus-client-0.20.0 pytz-2024.1 requests-2.32.3 six-1.16.0 tabulate-0.9.0 tzlocal-5.2 urllib3-2.2.2
+#9 11.25 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#9 11.48 
+#9 11.48 [notice] A new release of pip is available: 23.0.1 -> 24.1
+#9 11.48 [notice] To update, run: pip install --upgrade pip
+#9 DONE 11.7s
+
+#10 [5/5] COPY . .
+#10 DONE 0.1s
+
+#11 exporting to image
+#11 exporting layers
+#11 exporting layers 0.3s done
+#11 writing image sha256:5f7d054b1873758982b92d3b9275f1ad826ecfc3ff5d914dab5da963d0d6ea9b done
+#11 naming to docker.io/vinhbh/dramatiq_student:v1.2 0.0s done
+#11 DONE 0.3s
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push to Docker Hub)
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_PASSWORD
+[Pipeline] {
+[Pipeline] sh
++ docker login -u hoangvinh1577@gmail.com -p ****
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] sh
++ docker push vinhbh/dramatiq_student:v1.2
+The push refers to repository [docker.io/vinhbh/dramatiq_student]
+e000f00593ed: Preparing
+5e23fc4efc9c: Preparing
+ba42c788e429: Preparing
+1b79b85be14d: Preparing
+543693446bda: Preparing
+50df9224ea2a: Preparing
+c0a8bf9d6dab: Preparing
+2d8c3949de61: Preparing
+1387079e86ad: Preparing
+2d8c3949de61: Waiting
+c0a8bf9d6dab: Waiting
+50df9224ea2a: Waiting
+1387079e86ad: Waiting
+1b79b85be14d: Layer already exists
+543693446bda: Layer already exists
+c0a8bf9d6dab: Layer already exists
+2d8c3949de61: Layer already exists
+50df9224ea2a: Layer already exists
+ba42c788e429: Pushed
+1387079e86ad: Layer already exists
+e000f00593ed: Pushed
+5e23fc4efc9c: Pushed
+v1.2: digest: sha256:1d5969a5cf5dacecdf29ca3b286fd648fa8b98274e4c21fa5ed39947a0615806 size: 2206
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy dramatiq application)
+[Pipeline] ansiblePlaybook
+[dramatiq-student_main] $ /usr/bin/ansible-playbook ./ansible/playbooks/dramatiq.yml -i ./ansible/inventory.yml --private-key /var/jenkins_home/workspace/dramatiq-student_main/ssh5294333529565268122.key -u simone -e DRAMATIQ_IMAGE_VERSION=v1.2
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.144.129]
+
+TASK [update repository index (Ubuntu)] ****************************************
+changed: [192.168.144.129]
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.144.129]
+
+TASK [../roles/common : Install dependencies] **********************************
+ok: [192.168.144.129]
+
+TASK [../roles/common : Add Docker GPG key] ************************************
+ok: [192.168.144.129]
+
+TASK [../roles/common : Add Docker repository] *********************************
+ok: [192.168.144.129]
+
+TASK [../roles/common : Install Docker] ****************************************
+ok: [192.168.144.129]
+
+TASK [../roles/common : Start Docker service] **********************************
+ok: [192.168.144.129]
+
+TASK [../roles/common : Check the docker version] ******************************
+changed: [192.168.144.129]
+
+TASK [../roles/common : Install Python 3 and pip] ******************************
+changed: [192.168.144.129]
+
+TASK [../roles/common : Install Docker Compose dependencies] *******************
+ok: [192.168.144.129]
+
+PLAY [dramatiq_servers] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [192.168.144.129]
+
+TASK [../roles/dramatiq_servers : Check if docker-compose.yml exists] **********
+ok: [192.168.144.129]
+
+TASK [../roles/dramatiq_servers : Run Docker Compose Down] *********************
+changed: [192.168.144.129]
+
+TASK [../roles/dramatiq_servers : Remove directory] ****************************
+changed: [192.168.144.129]
+
+TASK [../roles/dramatiq_servers : Create directory dramatiq-project] ***********
+changed: [192.168.144.129]
+
+TASK [../roles/dramatiq_servers : Render Docker Compose template] **************
+changed: [192.168.144.129]
+
+TASK [../roles/dramatiq_servers : Run Docker Compose Build] ********************
+changed: [192.168.144.129]
+
+TASK [../roles/dramatiq_servers : Run Docker Compose Up] ***********************
+changed: [192.168.144.129]
+
+PLAY RECAP *********************************************************************
+192.168.144.129            : ok=19   changed=9    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+
+Could not update commit status, please check if your scan credentials belong to a member of the organization or a collaborator of the repository and repo:status scope is selected
+
+
+GitHub has been notified of this commit’s build result
+
+Finished: SUCCESS

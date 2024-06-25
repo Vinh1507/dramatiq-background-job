@@ -41,4 +41,10 @@ Kết quả lấy các đối tượng trong hệ thống (gọi 1 api tới API
 
 ### Sử dụng Jenkins multibranch pipeline
 
+![alt text](./images/jenkins-pipeline.png)
+
 ### Sử dụng Ansible trong việc triển khai project lên 1 VM
+
+### Log triển khai Jenkins
+
+[Jenkins log](./logs/jenkins-log.txt)
