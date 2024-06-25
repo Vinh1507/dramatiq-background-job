@@ -35,3 +35,10 @@ Kết quả lấy các đối tượng trong hệ thống (gọi 1 api tới API
 
 ![alt text](./images/object-result.png)
 
+
+
+## Setup CI/CD
+
+### Sử dụng Jenkins multibranch pipeline
+
+### Sử dụng Ansible trong việc triển khai project lên 1 VM
